@@ -1,41 +1,24 @@
-var state = history.state || {};
+document.getElementsByTagName("h1")[0].innerHTML = "Refresh Me";
+document.getElementsByClassName("img1")[0].setAttribute("src","images/dice6.png");
+document.getElementsByClassName("img2")[0].setAttribute("src","images/dice6.png");
 
-var reloadCount = state.reloadCount || 0;
+// if browser refresh
+if (performance.navigation.type == 1) {
+    var randomNumber1 = Math.floor(Math.random()*6)+1;
+    var images1 = "images/dice"+randomNumber1+".png";
+    var dice1 = document.getElementsByClassName("img1")[0];
+    dice1.setAttribute("src",images1);
 
-if (performance.navigation.type === 1) { // Reload
+    var randomNumber2 = Math.floor(Math.random()*6)+1;
+    var images2 = "images/dice"+randomNumber2+".png";
+    var dice2 = document.getElementsByClassName("img2")[0];
+    dice2.setAttribute("src",images2);
 
-  state.reloadCount = ++reloadCount;
-
-  history.replaceState(state, null, document.URL);
-
-} else if (reloadCount) {
-
-  delete state.reloadCount;
-
-  reloadCount = 0;
-
-  history.replaceState(state, null, document.URL);
-
-}
-
-if (reloadCount > 0) {
-
-  var randomNumber1 = Math.random();
-  randomNumber1 = Math.floor(randomNumber1 * 6) + 1;
-  var randomImageSource = "images/dice" + randomNumber1 +".png";
-  document.querySelector(".img1").setAttribute("src", randomImageSource);
-  var randomNumber2 = Math.random();
-  randomNumber2 = Math.floor(randomNumber2 * 6) + 1;
-  var randomImageSource2 = "images/dice" + randomNumber2 +".png";
-  document.querySelector(".img2").setAttribute("src", randomImageSource2);
-  if(randomNumber1 > randomNumber2){
-    document.querySelector("h1").innerHTML = "Player 1 Wins";
-  }
-  else if(randomNumber1 < randomNumber2){
-    document.querySelector("h1").innerHTML = "Player 2 Wins";
-  }
-  else{
-    document.querySelector("h1").innerHTML = "Draw";
-  }
-
+    if(randomNumber1 > randomNumber2){
+        document.getElementsByTagName("h1")[0].innerHTML = "Player 1 Win!";
+    }if(randomNumber1 == randomNumber2){
+        document.getElementsByTagName("h1")[0].innerHTML = "Draw!";
+    }else {
+        document.getElementsByTagName("h1")[0].innerHTML = "Player 2 Win!";
+    }
 }
